@@ -57,7 +57,13 @@ router.get('/get-animal-by-name/:name', function(req, res) {
 })
 
 router.post('/', function(req, res) {
+    let answer = null;
+
     animalArray.forEach((animal) => {
-        
+        if (animal === req.params) {
+            res.send('Error, item already present in array');
+        } else {answer = req.body}
     })
+    animalArray.push(answer)
+    res.json({ animalArray })
 })
