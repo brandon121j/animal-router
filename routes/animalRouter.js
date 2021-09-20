@@ -10,24 +10,24 @@ let animalArray = [
     { id: 3, animalName: "hamster" },
 ];
 
-// router.get('/', function(req, res) {
-//     let foundAnimal = null;
+router.get('/', function(req, res) {
+    let foundAnimal = null;
 
-//     if (Object.keys(req.query).length === 0) {
-//         res.json(animalArray);
-//     } else {
-//         animalArray.forEach((e) => {
-//             if (e.animalName === req.query.animal) {
-//                 foundAnimal = e;
-//             }
-//         })
-//     }
-//     if (!foundAnimal) {
-//         res.json({ animalArray });
-//     } else {
-//         res.json({ foundAnimal });
-//     }
-// });
+    if (Object.keys(req.query).length === 0) {
+        res.json({ animalArray })
+    } else {
+        animalArray.forEach((e) => {
+            if (e.animalName === req.query.animalName.toLowerCase()) {
+                foundAnimal = e;
+            }
+        })
+    }
+    if (!foundAnimal) {
+        res.json({ animalArray });
+    } else {
+        res.json({ foundAnimal });
+    }
+});
 
 router.get('/get-animal-by-id/:id', function(req, res) {
     let foundAnimal = null;
@@ -69,7 +69,7 @@ router.post('/', function(req, res) {
     res.json({ animalArray })
 });
 
-router.put('/update-animal-name/:name', function(req, res) {
+router.put('/update-animal-by-name/:name', function(req, res) {
     let foundAnimal = null;
 
     animalArray.forEach((item) => {
@@ -87,7 +87,7 @@ router.put('/update-animal-by-id/:id', function(req, res) {
     let foundAnimal = null;
 
     animalArray.forEach((item) => {
-        if (item.id === req.params.id) {
+        if (item === req.params) {
             item.animalName = req.body.newName;
             foundAnimal = true;
         }
@@ -113,7 +113,7 @@ router.delete('/delete-by-name/:name', function(req, res) {
         animalArray.splice(foundAnimal, 1);
         res.json({ animalArray, message: `Successfully deleted: ${req.params.name}` });
     }
-})
+});
 
 router.delete('/delete-by-id/:id', function(req, res) {
     let foundAnimal = null;
@@ -127,6 +127,6 @@ router.delete('/delete-by-id/:id', function(req, res) {
     if (!foundAnimal) {
         res.send('Animal does not exist');
     } else {
-        res.json({ foundAnimal, animalArray })
+        res.json({ foundAnimal, animalArray})
     }
-}) 
+});
