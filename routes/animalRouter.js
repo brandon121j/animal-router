@@ -113,7 +113,7 @@ router.delete('/delete-by-name/:name', function(req, res) {
         res.send('Animal not found');
     } else {
         animalArray.splice(foundAnimal, 1);
-        res.json({ animalArray, message: `Successfully deleted: ${req.params.name}` });
+        res.json({ message: `Successfully deleted: ID:${foundAnimal.id}, Name: ${foundAnimal.animalName}`, animalArray });
     }
 });
 
@@ -129,6 +129,6 @@ router.delete('/delete-by-id/:id', function(req, res) {
     if (!foundAnimal) {
         res.send('Animal does not exist');
     } else {
-        res.json({ foundAnimal, animalArray})
+        res.json({ message: `Successfully deleted: ID: ${foundAnimal.id}, AnimalName: ${foundAnimal.animalName}`, animalArray})
     }
 });
