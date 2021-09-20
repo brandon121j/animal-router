@@ -30,15 +30,15 @@ let animalArray = [
 // });
 
 router.get('/get-animal-by-id/:id', function(req, res) {
-    let animalId = null;
+    let foundAnimal = null;
 
     animalArray.forEach((element) => {
         if (element.id === +req.params.id) {
-            animalId = element;
+            foundAnimal = element;
         }
     })
 
-    res.json({ animalId, id: req.params.id })
+    res.json({ foundAnimal, id: req.params.id })
 });
 
 router.get('/get-animal-by-name/:name', function(req, res) {
@@ -79,6 +79,54 @@ router.put('/update-animal-name/:name', function(req, res) {
         }
     })
     if (!foundAnimal) {
-        res.send('Animal does not exist');
+        res.send('Please check your spelling');
     } else {res.json({ animalArray })}
+});
+
+router.put('/update-animal-by-id/:id', function(req, res) {
+    let foundAnimal = null;
+
+    animalArray.forEach((item) => {
+        if (item.id === req.params.id) {
+            item.animalName = req.body.newName;
+            foundAnimal = true;
+        }
+    })
+    if (!foundAnimal) {
+        res.send('Please check your spelling')
+    } else {
+        res.json({ animalArray })
+    }
+});
+
+router.delete('/delete-by-name/:name', function(req, res) {
+    let foundAnimal = null;
+
+    animalArray.forEach((item) => {
+        if (item.animalName === req.params.name) {
+            foundAnimal = item;
+        }
+    })
+    if (!foundAnimal) {
+        res.send('Animal not found');
+    } else {
+        animalArray.splice(foundAnimal, 1);
+        res.json({ animalArray, message: `Successfully deleted: ${req.params.name}` });
+    }
 })
+
+router.delete('/delete-by-id/:id', function(req, res) {
+    let foundAnimal = null;
+
+    animalArray.forEach((item, index) => {
+        if (item.id === +req.params.id) {
+            foundAnimal = item;
+            animalArray.splice(index, 1);
+        }
+    })
+    if (!foundAnimal) {
+        res.send('Animal does not exist');
+    } else {
+        res.json({ foundAnimal, animalArray })
+    }
+}) 
