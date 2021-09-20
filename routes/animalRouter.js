@@ -85,16 +85,18 @@ router.put('/update-animal-by-name/:name', function(req, res) {
 
 router.put('/update-animal-by-id/:id', function(req, res) {
     let foundAnimal = null;
+    console.log(animalArray[2])
 
     animalArray.forEach((item) => {
-        if (item === req.params) {
-            item.animalName = req.body.newName;
-            foundAnimal = true;
+        if (item.id === +req.params.id) {
+            foundAnimal = item;
         }
     })
     if (!foundAnimal) {
         res.send('Please check your spelling')
     } else {
+        // animalArray[foundAnimal] = req.body
+        foundAnimal.animalName = req.body.newName;
         res.json({ animalArray })
     }
 });
