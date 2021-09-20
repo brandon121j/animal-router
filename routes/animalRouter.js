@@ -60,8 +60,9 @@ router.post('/', function(req, res) {
     let answer = null;
 
     animalArray.forEach((animal) => {
-        if (animal === req.params) {
+        if (animal.animalName === req.body.animalName) {
             res.send('Error, item already present in array');
+            res.end;
         } else {answer = req.body}
     })
     animalArray.push(answer)
