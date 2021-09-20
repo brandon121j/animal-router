@@ -39,7 +39,7 @@ router.get('/get-animal-by-id/:id', function(req, res) {
     })
 
     res.json({ animalId, id: req.params.id })
-})
+});
 
 router.get('/get-animal-by-name/:name', function(req, res) {
     let foundAnimal = null;
@@ -54,7 +54,7 @@ router.get('/get-animal-by-name/:name', function(req, res) {
     } else {
         res.json({ foundAnimal });
     }
-})
+});
 
 router.post('/', function(req, res) {
     let answer = null;
@@ -67,4 +67,18 @@ router.post('/', function(req, res) {
     })
     animalArray.push(answer)
     res.json({ animalArray })
+});
+
+router.put('/update-animal-name/:name', function(req, res) {
+    let foundAnimal = null;
+
+    animalArray.forEach((item) => {
+        if (item.animalName === req.params.name) {
+            item.animalName = req.body.newName;
+            foundAnimal = true;
+        }
+    })
+    if (!foundAnimal) {
+        res.send('Animal does not exist');
+    } else {res.json({ animalArray })}
 })
