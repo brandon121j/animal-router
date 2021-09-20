@@ -16,5 +16,5 @@ app.use("/api/animal", animalRouter); // http request path
 
 // Function that console logs that the server is running
 app.listen(PORT, function() {
-    console.log(`Server is noow running @ port ${port}`);
+    console.log(`Server is noow running @ port ${PORT}`);
 });
